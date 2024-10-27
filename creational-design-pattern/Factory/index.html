@@ -8,10 +8,10 @@
 </head>
 <body>
   <h1>Factory design pattern:</h1>
-  <h2>
+  <h2 class="subHead">
     The Factory Design Pattern is especially useful in UI development for creating complex, configurable, and reusable components. Here’s a simple example of using the Factory Pattern to build different types of UI components in JavaScript.
   </h2>
-  <ul>
+  <ul class="info">
   <h3>Benefits</h3>
   <li>Encapsulation: <p>The client code doesn’t need to know the specification of each button type.</p>
 
@@ -24,6 +24,31 @@
     The Factory Pattern’s goal is to abstract the instantiation logic so that the client code only interacts with a simple interface (ButtonFactory.createButton). This approach makes the client code more flexible because it doesn’t need to change if you add new button types (like a WarningButton) or modify existing ones.</li>
 This pattern makes UI components modular and scalable,maintainability, which is ideal for larger applications.
 </ul>
-  <script src="factory.js"></script>
+
+<h2>Factory based Project: Notification System</h2>
+<form id="notificationForm">
+  <label for="type">Select Notification Type:</label>
+  <select id="type">
+    <option value="email">Email</option>
+    <option value="sms">SMS</option>
+    <option value="whatsapp">WhatsApp</option>
+    <option value="push">Push</option>
+
+  </select>
+  <br><br>
+  <label for="message">Message:</label>
+  <input type="text" id="message" required>
+  <br><br>
+  <label for="priority">Priority:</label>
+  <input type="text" id="priority" required>
+  <br><br>
+  <label for="schedule">Schedule:</label>
+  <input type="text" id="schedule" required>
+  <br><br>
+  <button type="submit">Send Notification</button>
+</form>
+
+  <script src="./factory.js"></script>
+  <script src="./notificationSystem.js"></script>
 </body>
 </html>

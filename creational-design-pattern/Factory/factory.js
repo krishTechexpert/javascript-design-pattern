@@ -1,12 +1,14 @@
 //Button Interface:
 class Button{
+  parentElement=document.querySelector('.info');
   constructor(text){
      this.btn = document.createElement('button');
      this.btn.textContent = text;
-     this.message = text
+     this.message = text;
+
   }
   render(){
-    document.body.appendChild(this.btn)
+    this.parentElement.appendChild(this.btn)
   }
 
   buttonAction(message){
@@ -16,8 +18,11 @@ class Button{
   }
   
 }
+
 //Concrete classes that extend Button and customize the appearance of each button type (e.g., different background colors).
 class PrimaryButton extends Button{
+  parentElement = document.querySelector('.subHead')
+
   constructor(text){
     super(text);
     this.btn.style.backgroundColor='green';
@@ -67,7 +72,7 @@ class ButtonFactory{
 //Client Usage:The client code simply calls ButtonFactory.createButton() with the required type and text, and the factory returns the appropriate button type.
 //This pattern hides the implementation details of button creation, following the Factory Pattern’s goal of decoupling the client code from the specific button instantiation logic.
 const primaryBtn =ButtonFactory.createButton('primary','Save');
-primaryBtn.render()
+primaryBtn.render(primaryBtn.parentElement)
 primaryBtn.buttonAction(primaryBtn.message)
 
 const secondaryBtn =ButtonFactory.createButton('secondary','Info');
