@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Learn Design Pattern</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+  <h1>Builder design pattern:</h1>
+  <h2>The Builder Pattern is a creational design pattern that helps construct complex objects step by step. It’s especially useful when creating objects that require several parts, or configurations, and when you want the flexibility to create different variations of the same type of object.</h2>
+
+  <ul>
+    Here’s how the Builder Pattern works:
+
+<li><strong>Separate Construction from Representation:</strong> The pattern allows you to separate the process of building an object from its final representation. This makes it easy to construct different types or variations of an object without changing the actual building process.</li>
+
+<li><strong>Director:</strong> This is the class that controls the construction process. It doesn't create the object itself but instead uses a builder to guide the creation.</li>
+
+<li><strong>Builder Interface:</strong> The builder defines an interface for creating the individual parts of a complex object. Different builders can implement this interface to build variations of the object.</li>
+
+<li><strong>Concrete Builder:</strong> Each Concrete Builder implements the Builder interface and is responsible for constructing a specific variation of the object.</li>
+
+<li></strong>Product:</strong> This is the final object created by the builder. The builder assembles and returns it at the end of the construction process.</li>
+  </ul>
+  
+  <!-- <script src="./without-builder.js"></script> -->
+  <script src="./builder.js"></script>
+
+</body>
+</html>
