@@ -1,6 +1,7 @@
 //try to create houses with different configurations directly
 class House {
   // Constructor with parameters for each feature
+
   constructor(hasGarden = false, hasPool = false, hasGarage = false) {
     this.hasGarden = hasGarden;
     this.hasPool = hasPool;
