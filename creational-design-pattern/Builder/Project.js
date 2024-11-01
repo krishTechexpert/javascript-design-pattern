@@ -15,7 +15,17 @@ class Form{
     form.addEventListener('submit',function(e){
       e.preventDefault();
       const formData = new FormData(form);
-      console.log(Object.fromEntries(formData))
+      const data={};
+      formData.forEach((value, key) => {
+        // If the key already exists in data, make it an array and add new values to it
+        if (data[key]) {
+          data[key] = [].concat(data[key], value);
+        } else {
+          data[key] = value;
+        }
+      });
+    
+      console.log(data);
     })
   }
 }
@@ -23,8 +33,8 @@ class Form{
 class FormBuilder{
   constructor(){
     this.form= new Form();
-
   }
+
   addTextInputField(label,placeholder='',type="text"){
     const fieldName = label.toLowerCase().replace(" ", "_");
 
@@ -159,6 +169,7 @@ class FormBuilder{
   }
 
   addCheckbox(label,options=[]) {
+    const fieldName = label.toLowerCase().replace(" ", "_");
 
     this.form.fields.push({
       type: "checkbox",
@@ -174,8 +185,9 @@ class FormBuilder{
           const labelElement = document.createElement("label");
           const checkboxElement = document.createElement("input");
           checkboxElement.type = "checkbox";
-          checkboxElement.checked=false;
-          checkboxElement.name=text;
+          checkboxElement.value=text;
+          checkboxElement.name=fieldName;
+
           labelElement.textContent = text;
           labelElement.prepend(checkboxElement);
           wrapper.appendChild(labelElement);
@@ -253,10 +265,7 @@ class FormBuilder{
     });
     return this;
   }
-
-
   build(){
-
     return this.form;
   }
 }

@@ -10,7 +10,7 @@ class House {
 // Builder Interface
 class HouseBuilder{
   constructor(){
-    this.house = new House();
+    this.house = new House();// tight coupling (try to refactor it to remove tight coupling see below code builder-remove-tight-coupling.js file)
   }
   addGarden(garden){
     this.house.hasGarden=garden;
