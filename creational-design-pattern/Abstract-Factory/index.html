@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Learn Design Pattern</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+  <div>
+  <h2>  What is Abstraction?</h2>
+<p>Abstraction means hiding the details of how something works and exposing only what is necessary to the user. It helps to simplify complex systems by focusing only on the essential parts.</p>
+
+<h2>Think of a car:</h2>
+
+<p>You know how to drive it (accelerate, brake, steer), but you don’t need to know how the engine, transmission, or brakes work internally.
+The details are abstracted away.</p>
+
+<ul>
+  <li><h2>Why is Abstraction Useful?</h2></li>
+<li><b>Simplifies Code:</b> Focus only on what you need to use, not how it works.</li>
+<li><b>Improves Maintainability:</b> Changes in internal details don’t affect the rest of the code.</li>
+<li><b>Makes Code Reusable:</b> Create general tools that hide complexity.</li>
+
+</ul>
+
+  </div>
+
+  <div>
+    <h2>
+      Factory Design Pattern    </h2>
+
+<p>The Factory Pattern focuses on creating one type of object. You have a single factory function that decides which specific object to create based on some input.
+
+  <img src="./factory-design.png" width="100%" />
+
+</p>
+
+<p><b>Note:</b>In this case, the factory (CarFactory) creates one kind of product (Car).
+
+</p>
+
+  </div>
+
+  <h1>Abstract Factory design pattern:</h1>
+  <p>The Abstract Factory Pattern provides a way to create families of related or dependent objects without specifying their concrete classes. Instead of one factory, you have multiple factories (or a factory of factories). </p>
+
+  <p>
+    Example:
+Imagine you're running multiple factories for cars in different regions (e.g., US Factory, European Factory). Each factory can produce an SUV and a Sedan, but the implementation might vary slightly based on the region. </p>
+<p>
+  <img src="./abstract-factory-design.png" width="100%" />
+</p>
+<p>Here, USCarFactory and EUCarFactory are "factories" that create a family of related objects (SUV and Sedan for their respective regions).</p>
+
+<h2>Real world example : Employee Factory</h2>
+<p>Imagine a system where we need to create different types of employees: Full-Time, Part-Time, and Interns.</p>
+<p><img src="./employee-abstract-factory-design.png" width="100%" /></p>
+<p>
+  How is this Abstract?
+Abstraction in Factories:
+
+<h2>The client code doesn’t need to know the concrete classes (FullTimeEmployee, PartTimeEmployee, Intern). <br>
+  It only interacts with the factories and their createEmployee method.
+
+</h2>
+
+
+Flexible Structure:
+
+<h2>You can add new employee types (e.g., freelancers) by creating a new factory, without changing the client code.</h2>
+
+Reusability:
+<h2>
+The factories encapsulate how employees are created, so you can reuse them in different parts of your application.</h2>
+
+</p>
+
+  <script src="./basic-abstraction-examples/bank-abstraction-example.js"></script>
+  <script src="./basic-abstraction-examples/coffee-machine.js"></script>
+  <script src="./basic-abstraction-examples/shoppingCart.js"></script>
+  <script src="./basic-abstraction-examples/Library.js"></script>
+  <script>
+
+    //Example 1
+    
+    // US Cars
+
+    class US_SUV{
+      drive(){
+        return "Driving a US SUV"
+      }
+    }
+
+    class US_Sedan{
+      drive(){
+        return "Driving a US SEDAN"
+      }
+    }
+
+    // European Cars
+    class EU_SUV {
+      drive(){
+        return "Driving a European SUV!"
+      }
+    }
+
+    class EU_Sedan{
+      drive(){
+        return "Driving a European Sedan!";
+      }
+    }
+
+    // Abstract Factory
+    class USCarFactory{
+      createSUV(){
+        return new US_SUV();
+      }
+      createSedan(){
+        return new US_Sedan()
+      }
+    }
+
+    class EUCarFactory{
+      createSUV(){
+        return new EU_SUV()
+      }
+      createSedan(){
+        return new EU_Sedan();
+      }
+    }
+
+    // client code
+    const usFactory = new USCarFactory();
+    const usSUV = usFactory.createSUV();
+    console.log(usSUV.drive()); // Output: Driving a US SUV!
+
+    const euFactory = new EUCarFactory();
+    const euSedan = euFactory.createSedan();
+    console.log(euSedan.drive()); // Output: Driving a European Sedan!
+
+
+    // example 2 : Employee Factory
+    //Step 1: Define the Employee Interface
+
+    class Employee{
+      constructor(name,salary){
+        this.name=name;
+        this.salary=salary;
+      }
+      getDetails(){
+        return `Name: ${this.name}, Salary: $${this.salary}`;
+      }
+    }
+    //Step 2: Define Concrete Employee Types
+
+    class FullTimeEmployee extends Employee{
+      constructor(name,salary){
+        super(name,salary);
+        this.benefits = ["Health Insurance", "Paid Leaves"];
+      }
+      getDetails(){
+        return `${super.getDetails()},Benefits: ${this.benefits.join(', ')}`;
+      }
+    }
+
+    class PartTimeEmployee extends Employee{
+      constructor(name,salary){
+        super(name,salary);
+        this.hours=20
+      }
+      getDetails() {
+        return `${super.getDetails()}, Hours: ${this.hours} per week`;
+      }
+    }
+
+    class Intern extends Employee {
+      constructor(name, stipend) {
+        super(name, stipend);
+        this.mentor = "Assigned Mentor";
+      }
+
+      getDetails() {
+        return `${super.getDetails()}, Mentor: ${this.mentor}`;
+      }
+    }
+
+    class Freelancer extends Employee{
+      constructor(name,hourlyRate,contractDuration){
+        super(name, hourlyRate); // Use hourlyRate as a placeholder for salary
+        this.hourlyRate = hourlyRate;
+        this.contractDuration = contractDuration; // e.g., "6 months"
+      }
+      getDetails(){
+        return `${super.getDetails()}, Hourly Rate: $${this.hourlyRate}/hour, Contract Duration: ${this.contractDuration}`;
+
+      }
+    }
+
+    //Step 3: Create Abstract Factory: Define a factory interface to produce employees.
+
+    class EmployeeFactory {
+      createEmployee(name, salary) {
+        throw new Error("Method not implemented!");
+      }
+    }
+
+    //Step 4: Implement Concrete Factories : Each factory creates a specific type of employee.
+
+    class FullTimeEmployeeFactory extends EmployeeFactory{
+      createEmployee(name,salary){
+        return new FullTimeEmployee(name,salary)
+      }
+    }
+
+    class PartTimeEmployeeFactory extends EmployeeFactory {
+      createEmployee(name, salary) {
+        return new PartTimeEmployee(name, salary);
+      }
+    }
+
+    class InternFactory extends EmployeeFactory {
+      createEmployee(name, stipend) {
+        return new Intern(name, stipend);
+      }
+    }
+
+    class FreelancerFactory {
+      createEmployee(name, hourlyRate, contractDuration) {
+        return new Freelancer(name, hourlyRate, contractDuration);
+      }
+    }
+
+
+    //Step 5: Use the Abstract Factory
+    //The client code interacts with factories without worrying about the specific employee types.
+
+    // Factory Instances
+    const fullTimeFactory = new FullTimeEmployeeFactory();
+    const partTimeFactory = new PartTimeEmployeeFactory();
+    const internFactory = new InternFactory();
+    const freelancerFactory = new FreelancerFactory(); // New Freelancer Factory
+
+
+    // Create Employees
+    const emp1 = fullTimeFactory.createEmployee("Alice", 50000);
+    const emp2 = partTimeFactory.createEmployee("Bob", 20000);
+    const emp3 = internFactory.createEmployee("Charlie", 5000);
+    const emp4 = freelancerFactory.createEmployee('Dave',50,'6 months')
+
+    // Display Employee Details
+    console.log(emp1.getDetails()); // Name: Alice, Salary: $50000, Benefits: Health Insurance, Paid Leaves
+    console.log(emp2.getDetails()); // Name: Bob, Salary: $20000, Hours: 20 per week
+    console.log(emp3.getDetails()); // Name: Charlie, Salary: $5000, Mentor: Assigned Mentor
+    console.log(emp4.getDetails()); // Name: Dave, Salary: $50, Hourly Rate: $50/hour, Contract Duration: 6 months
+
+
+  </script>
+
+</body>
+</html>
